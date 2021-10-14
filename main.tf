@@ -8,7 +8,7 @@ resource "aws_iam_role_policy" "certs" {
     "Version" : "2012-10-17",
     "Statement" : [
       {
-        "Sid" : "VisualEditor0",
+        "Sid" : "",
         "Effect" : "Allow",
         "Action" : [
           "acm:ExportCertificate",
@@ -16,7 +16,8 @@ resource "aws_iam_role_policy" "certs" {
           "acm:DescribeCertificate",
           "acm:GetCertificate",
           "acm:ListCertificates",
-          "acm:ListTagsForCertificate"
+          "acm:ListTagsForCertificate",
+          "elasticloadbalancing:AddListenerCertificates"
         ],
         "Resource" : "*"
       }
