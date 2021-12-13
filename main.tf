@@ -8,8 +8,8 @@ data "aws_iam_role" "lb" {
 }
 
 locals {
-  roles_by_cluster = { for role in data.aws_iam_role.lb : role.tags["KubernetesCluster"] => role }
-  role             = local.roles_by_cluster
+  roles_by_cluster = { for role in data.aws_iam_role.lb : role.tags["KubernetesCluster"] => role.id }
+  role             = lookup(local.roles_by_cluster, var.cluster_name, "missing")
 }
 
 resource "aws_iam_role_policy" "certs" {
@@ -33,5 +33,5 @@ resource "aws_iam_role_policy" "certs" {
       }
     ]
   })
-  role = local.role[var.cluster_name].id
+  role = local.role
 }
