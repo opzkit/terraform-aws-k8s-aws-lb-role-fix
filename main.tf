@@ -3,13 +3,7 @@ data "aws_iam_roles" "lb" {
 }
 
 data "aws_iam_role" "lb" {
-  for_each = data.aws_iam_roles.lb.names
-  name     = each.value
-}
-
-locals {
-  roles_by_cluster = { for role in data.aws_iam_role.lb : role.tags["KubernetesCluster"] => role }
-  role             = local.roles_by_cluster
+  name = tolist(data.aws_iam_roles.lb.names)[0]
 }
 
 resource "aws_iam_role_policy" "certs" {
@@ -33,5 +27,5 @@ resource "aws_iam_role_policy" "certs" {
       }
     ]
   })
-  role = local.role[var.cluster_name].id
+  role = data.aws_iam_role.lb.id
 }
