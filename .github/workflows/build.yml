@@ -27,6 +27,6 @@ jobs:
           sudo mv terraform /usr/local/bin
           rm *
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@ee0669bd1cc54295c223e0bb666b733df41de1c5 # v2
       - name: Validate examples terraform v${{ matrix.tf-version }}
         run: make examples
